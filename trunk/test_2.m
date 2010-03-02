@@ -17,11 +17,11 @@ for i=1:length(imgIndex)
     % simulate cfa image
     rawImage = mosaicRGB(trueImage);
     
-    red_Array = rawImage(2:2:end,1:2:end);
-    green_Array = zeros(size(rawImage,1),size(rawImage,2)/2);
-    green_Array(1:2:end,:) = rawImage(1:2:end,1:2:end);
-    green_Array(2:2:end,:) = rawImage(2:2:end,2:2:end);
-    blue_Array = rawImage(1:2:end,2:2:end);
+    % extract color component from rawImage
+    [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
+    
+    % simple merging green array
+    green_Array = merge_Array(green_Array1, green_Array2);
     
     % aware that matlab is terrible at displaying images
     % zoom in to get rid of aliasing effects
@@ -34,30 +34,20 @@ for i=1:length(imgIndex)
     imwrite(green_Array,ind_green,'jpg');
     imwrite(blue_Array,ind_blue,'jpg');
 
-    fp_red = fopen(ind_red,'r');
-    jpeg_red=fread(fp_red,[1,inf],'uchar');
-    fclose(fp_red);
-    
-    fp_green = fopen(ind_green,'r');
-    jpeg_green=fread(fp_green,[1,inf],'uchar');
-    fclose(fp_green);
-    
-    fp_blue = fopen(ind_blue,'r');
-    jpeg_blue=fread(fp_blue,[1,inf],'uchar');
-    fclose(fp_blue);
+    jpeg_red = read_jpeg(ind_red);
+    jpeg_green = read_jpeg(ind_green);
+    jpeg_blue = read_jpeg(ind_blue);
+    jpeg_cell = {jpeg_red , jpeg_green , jpeg_blue};
 
-    compression_ratio = size(trueImage,1)*size(trueImage,2)*size(trueImage,3)/(length(jpeg_red)-623+length(jpeg_green)-623+length(jpeg_blue)-623);
+    % calculate compression ratio
+    compression_ratio = calculate_compressionRatio(trueImage, jpeg_cell);
 
     recon_red = imresize(double(imread(ind_red)),1);
     recon_green = imresize(double(imread(ind_green)),1);
     recon_blue = imresize(double(imread(ind_blue)),1);
     
-    recon_rawImage = zeros(size(rawImage));
-    recon_rawImage(2:2:end,1:2:end) = recon_red;
-    recon_rawImage(1:2:end,1:2:end) = recon_green(1:2:end,:);
-    recon_rawImage(2:2:end,2:2:end) = recon_green(2:2:end,:);
-    recon_rawImage(1:2:end,2:2:end) = recon_blue;
-    
+    % reconstruction raw image
+    recon_rawImage = reconstruction_rawImage(recon_red, recon_green(1:2:end,:), recon_green(2:2:end,:), recon_blue);
     recon_rawImage = recon_rawImage ./ max(recon_rawImage(:));
     
     %apply demosaic algorithms and evaluate errors

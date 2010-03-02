@@ -22,12 +22,13 @@ for i=1:length(imgIndex)
     ind = sprintf('test1_%02d.jpg',i);
     imwrite(rawImage,ind,'jpg');
 
-    fp = fopen(ind,'r');
-    jpeg_data=fread(fp,[1,inf],'uchar');
-    fclose(fp);
+    jpeg_data = read_jpeg(ind);
+    jpeg_data_cell = {jpeg_data};
+    
+    %calculate compression ratio
+    compression_ratio = calculate_compressionRatio(trueImage,jpeg_data_cell);
 
-    compression_ratio = size(trueImage,1)*size(trueImage,2)*size(trueImage,3)/(length(jpeg_data)-623);
-
+    %reconstruction image
     recon_rawImage = imresize(double(imread(ind)),1);
     recon_rawImage = recon_rawImage ./ max(recon_rawImage(:));
     
