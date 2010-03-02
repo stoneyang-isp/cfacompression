@@ -10,8 +10,6 @@ clear;clc;close all;
 
 imgIndex = [1];
 DM = {'bilinear', 'homogeneity', 'frequency'};
-color_conversion = [128.6 0 25 65.5;0 128.6 25 65.5;-37.1 -37.1 112 -37.8; -46.9 -46.9 -18.2 112];
-color_conversion_const = [0;0;128;128];
 
 for i=1:length(imgIndex)
 
@@ -24,62 +22,16 @@ for i=1:length(imgIndex)
     % simulate cfa image
     rawImage = mosaicRGB(trueImage);
     
-    red_Array = rawImage(2:2:end,1:2:end);
-    green_Array1 = rawImage(1:2:end,1:2:end);
-    green_Array2 = rawImage(2:2:end,2:2:end);
-    blue_Array = rawImage(1:2:end,2:2:end);
+    % extract color component from rawImage
+    [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
     
-    temp_green_Array = zeros(size(green_Array1,1)*2,size(green_Array1,2)*2);
-    temp_green_Array(1:2:end,1:2:end) = green_Array1;
-    temp_green_Array(2:2:end,2:2:end) = green_Array2;
+    % lowpass filtering using filter1
+    green_Array = lowpass_filtering_1(green_Array1,green_Array2);
     
-    for x=1:size(temp_green_Array,1)/2
-        for y=1:size(temp_green_Array,2)/4
-            green_d = temp_green_Array(2*x,4*y-2);
-            if x == 1
-                green_u = green_d;
-            else
-                green_u = temp_green_Array(2*x-2,4*y-2);
-            end
-            green_l = temp_green_Array(2*x-1,4*y-3);
-            green_r = temp_green_Array(2*x-1,4*y-1);
-            green_sum = green_u + green_d + green_l + green_r;
-            
-            temp_green_Array(2*x-1,4*y-2) = 0.25 * green_sum;
-            
-            green_u = temp_green_Array(2*x-1,4*y-1);
-            if x == size(temp_green_Array,1)/2
-                green_d = green_u;
-            else
-                green_d = temp_green_Array(2*x+1,4*y-1);
-            end
-            green_l = temp_green_Array(2*x,4*y-2);
-            green_r = temp_green_Array(2*x,4*y);
-            green_sum = green_u + green_d + green_l + green_r;
-            
-            temp_green_Array(2*x,4*y-1) = 0.25 * green_sum;
-        end
-    end
+    % convert RGB to YCbCr
+    [y_Array1, y_Array2, cb_Array, cr_Array] = cfa_rgb2ycbcr(red_Array, green_Array(1:2:end,:), green_Array(2:2:end,:), blue_Array);
     
-    green_Array = zeros(size(green_Array1,1)*2,size(green_Array1,2));
-    
-    green_Array(:,1:2:end) = temp_green_Array(:,2:4:end);
-    green_Array(:,2:2:end) = temp_green_Array(:,3:4:end);
-        
-    y_Array = zeros(size(green_Array));
-    cb_Array = zeros(size(red_Array)); 
-    cr_Array = zeros(size(red_Array));
-    
-    for x=1:size(red_Array,1)
-        for y=1:size(red_Array,2)
-            temp = [green_Array(2*x-1,y) ; green_Array(2*x,y) ; blue_Array(x,y) ; red_Array(x,y)];
-            output = color_conversion*temp + color_conversion_const;
-            y_Array(2*x-1,y) = output(1);
-            y_Array(2*x,y) = output(2);
-            cb_Array(x,y) = output(3);
-            cr_Array(x,y) = output(4);
-        end
-    end
+    y_Array = merge_Array(y_Array1, y_Array2);
     
     temp_max = max(max([y_Array;cb_Array;cr_Array]));
     y_Array = y_Array/temp_max;
@@ -97,48 +49,25 @@ for i=1:length(imgIndex)
     imwrite(cb_Array,ind_cb,'jpg');
     imwrite(cr_Array,ind_cr,'jpg');
 
-    fp_y = fopen(ind_y,'r');
-    jpeg_y=fread(fp_y,[1,inf],'uchar');
-    fclose(fp_y);
-    
-    fp_cb = fopen(ind_cb,'r');
-    jpeg_cb=fread(fp_cb,[1,inf],'uchar');
-    fclose(fp_cb);
-    
-    fp_cr = fopen(ind_cr,'r');
-    jpeg_cr=fread(fp_cr,[1,inf],'uchar');
-    fclose(fp_cr);
+    jpeg_y = read_jpeg(ind_y);
+    jpeg_cb = read_jpeg(ind_cb);
+    jpeg_cr = read_jpeg(ind_cr);
+    jpeg_cell = {jpeg_y, jpeg_cb, jpeg_cr};
 
-    compression_ratio = size(trueImage,1)*size(trueImage,2)*size(trueImage,3)/(length(jpeg_y)-623+length(jpeg_cb)-623+length(jpeg_cr)-623);
+    % calculate compression ratio
+    compression_ratio = calculate_compressionRatio(trueImage,jpeg_cell);
 
     recon_y = imresize(double(imread(ind_y)),1);
     recon_cb = imresize(double(imread(ind_cb)),1);
     recon_cr = imresize(double(imread(ind_cr)),1);
-        
-    recon_green = zeros(size(green_Array));
-    recon_red = zeros(size(red_Array));
-    recon_blue = zeros(size(red_Array));
-    
-    for x=1:size(red_Array,1)
-        for y=1:size(red_Array,2)
-            temp = [recon_y(2*x-1,y) ; recon_y(2*x,y) ; recon_cb(x,y) ; recon_cr(x,y)];
-            output = inv(color_conversion) * (temp-color_conversion_const);
-            recon_green(2*x-1,y) = output(1);
-            recon_green(2*x,y) = output(2);
-            recon_blue(x,y) = output(3);
-            recon_red(x,y) = output(4);
-        end
-    end
-    
-        
-    recon_rawImage = zeros(size(rawImage));
-    recon_rawImage(2:2:end,1:2:end) = recon_red;
-    recon_rawImage(1:2:end,1:2:end) = recon_green(1:2:end,:);
-    recon_rawImage(2:2:end,2:2:end) = recon_green(2:2:end,:);
-    recon_rawImage(1:2:end,2:2:end) = recon_blue;
-    
+            
+    % convert YCbCr to RGB
+    [recon_red, recon_green1, recon_green2, recon_blue] = cfa_ycbcr2rgb(recon_y(1:2:end,:), recon_y(2:2:end,:), recon_cb, recon_cr);
+
+    % reconstruction raw image
+    recon_rawImage = reconstruction_rawImage(recon_red, recon_green1, recon_green2, recon_blue);
     recon_rawImage = recon_rawImage ./ max(recon_rawImage(:));
-    
+        
     %apply demosaic algorithms and evaluate errors
     for j=1:length(DM)
         disp(['Demosaicking... ' DM{j}]);
