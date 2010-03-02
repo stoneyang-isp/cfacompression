@@ -6,16 +6,9 @@
 % 3. color space conversion
 % 4. JPEG compression
 
-function [compression_ratio , mse, psnr, scielab, dmImage] = NovelmethodFilter2_applyJPEG(imgFile,demosaic_method,quality)
+function [compression_ratio, ind_cell] = NovelmethodFilter2_applyJPEG_encoder(rawImage,quality)
 
 addpath tempImages applyJPEG
-
-trueImage = imresize(double(imread(imgFile)), 1);
-trueImage = trueImage ./ max(trueImage(:));
-
-% CFA: GRBG
-% simulate cfa image
-rawImage = mosaicRGB(trueImage);
 
 % extract color component from rawImage
 [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
@@ -50,25 +43,8 @@ jpeg_cr = read_jpeg(ind_cr);
 jpeg_cell = {jpeg_y, jpeg_cb, jpeg_cr};
 
 % calculate compression ratio
-compression_ratio = calculate_compressionRatio(trueImage,jpeg_cell);
+compression_ratio = calculate_compressionRatio(rawImage,jpeg_cell);
 
-recon_y = imresize(double(imread(ind_y)),1);
-recon_cb = imresize(double(imread(ind_cb)),1);
-recon_cr = imresize(double(imread(ind_cr)),1);
-
-
-% convert YCbCr to RGB
-[recon_red, recon_green1, recon_green2, recon_blue] = cfa_ycbcr2rgb(recon_y(1:2:end,:), recon_y(2:2:end,:), recon_cb, recon_cr);
-
-% reconstruction raw image
-recon_rawImage = reconstruction_rawImage(recon_red, recon_green1, recon_green2, recon_blue);
-recon_rawImage = recon_rawImage ./ max(recon_rawImage(:));
-
-%apply demosaic algorithms and evaluate errors
-disp(['Demosaicking... ' demosaic_method]);
-dmImage = applyDemosaic(recon_rawImage, demosaic_method);
-mse = evaluateQuality(trueImage, dmImage, 'mse');
-psnr = evaluateQuality(trueImage, dmImage, 'psnr');
-scielab = evaluateQuality(trueImage, dmImage, 'scielab');
+ind_cell = {ind_y, ind_cb, ind_cr};
 
 end
