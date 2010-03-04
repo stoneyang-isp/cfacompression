@@ -6,9 +6,9 @@
 % 3. color space conversion
 % 4. JPEG compression
 
-function [compression_ratio, ind_cell] = NovelmethodFilter1_applyJPEG_encoder(rawImage,quality)
+function [compression_ratio, ind_cell] = NovelmethodFilter1_applyJPEG_encoder(rawImage,quality,mode)
 
-addpath tempImages applyJPEG
+addpath cfacompression/applyJPEG/tempImages
 
 % extract color component from rawImage
 [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
@@ -21,21 +21,22 @@ green_Array = lowpass_filtering_1(green_Array1,green_Array2);
 
 y_Array = merge_Array(y_Array1, y_Array2);
 
-temp_max = max(max([y_Array;cb_Array;cr_Array]));
-y_Array = y_Array/temp_max;
-cb_Array = cb_Array/temp_max;
-cr_Array = cr_Array/temp_max;
-
 % aware that matlab is terrible at displaying images
 % zoom in to get rid of aliasing effects
 
-ind_y=sprintf('tempImages/test5_y.jpg');
-ind_cb=sprintf('tempImages/test5_cb.jpg');
-ind_cr=sprintf('tempImages/test5_cr.jpg');
+ind_y=sprintf('cfacompression/applyJPEG/tempImages/test5_y.jpg');
+ind_cb=sprintf('cfacompression/applyJPEG/tempImages/test5_cb.jpg');
+ind_cr=sprintf('cfacompression/applyJPEG/tempImages/test5_cr.jpg');
 
-imwrite(y_Array,ind_y,'jpg','Quality',quality);
-imwrite(cb_Array,ind_cb,'jpg','Quality',quality);
-imwrite(cr_Array,ind_cr,'jpg','Quality',quality);
+if strcmp(mode, 'lossless')
+    imwrite(uint8(y_Array),ind_y,'jpg','Mode',mode);
+    imwrite(uint8(cb_Array),ind_cb,'jpg','Mode',mode);
+    imwrite(uint8(cr_Array),ind_cr,'jpg','Mode',mode);
+else
+    imwrite(uint8(y_Array),ind_y,'jpg','Quality',quality);
+    imwrite(uint8(cb_Array),ind_cb,'jpg','Quality',quality);
+    imwrite(uint8(cr_Array),ind_cr,'jpg','Quality',quality);
+end
 
 jpeg_y = read_jpeg(ind_y);
 jpeg_cb = read_jpeg(ind_cb);

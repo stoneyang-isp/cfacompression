@@ -6,9 +6,10 @@ addpath cfacompression/applyJPEG
 
 imgIndex = [23];
 CM = {'directJPEG' , 'simpleMerging' , 'structureConversion' , 'structureSeperation' , 'NovelMethod1' , 'NovelMethod2'};
-CM = {'structureConversion'};
-mode = 'lossless'; quality = [100];
-% mode = 'lossy'; quality = [25 50 75 100];
+%CM = {'NovelMethod2'};
+%mode = 'lossless'; quality = [100];
+ mode = 'lossy'; %quality = [25 50 75 100];
+ quality = [100];
 
 for i=1:length(imgIndex)
 
@@ -23,12 +24,13 @@ for i=1:length(imgIndex)
     rawImage = mosaicRGB(trueImage);
     
     for j=1:length(CM)
+        disp(CM{j});
         for q=1:length(quality)
+            disp(['quality = ' num2str(quality(q))]);
             [compression_ratio, ind_cell] = apply_JPEG_encoder(rawImage,quality(q),CM{j}, mode);
             [reconImage] = apply_JPEG_decoder(ind_cell, CM{j});
             mse = evaluateQuality(rawImage, reconImage, 'mse');
-            disp(CM{j});
-            disp(compression_ratio);
+            %disp(compression_ratio);
             disp(mse);
         end
         figure;

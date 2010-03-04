@@ -1,6 +1,6 @@
-function [dmImage] = structureSeperation_applyJPEG_decoder(ind_cell, demosaic_method)
+function [recon_rawImage] = structureSeperation_applyJPEG_decoder(ind_cell, demosaic_method)
 
-addpath tempImages applyJPEG
+addpath cfacompression/applyJPEG/tempImages
 
 if length(ind_cell) ~= 4
     disp('length of ind_cell should be 4');
@@ -21,10 +21,5 @@ recon_cr = imresize(double(imread(ind_cr)),1);
 
 % reconstruction raw image
 recon_rawImage = reconstruction_rawImage(recon_red, recon_green1, recon_green2, recon_blue);
-recon_rawImage = recon_rawImage ./ max(recon_rawImage(:));
-
-%apply demosaic algorithms and evaluate errors
-disp(['Demosaicking... ' demosaic_method]);
-dmImage = applyDemosaic(recon_rawImage, demosaic_method);
 
 end
