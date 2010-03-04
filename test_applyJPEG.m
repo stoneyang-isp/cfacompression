@@ -2,24 +2,38 @@
 
 clear;clc;close all;
 
-imgIndex = [1];
+addpath cfacompression/applyJPEG
+
+imgIndex = [23];
 CM = {'directJPEG' , 'simpleMerging' , 'structureConversion' , 'structureSeperation' , 'NovelMethod1' , 'NovelMethod2'};
+CM = {'structureConversion'};
+mode = 'lossless'; quality = [100];
+% mode = 'lossy'; quality = [25 50 75 100];
+
 for i=1:length(imgIndex)
 
     % read ground truth image
     imgFile = sprintf('kodim/kodim%02d.png', imgIndex(i));
-    trueImage = imresize(double(imread(imgFile)), 1);
-    trueImage = trueImage ./ max(trueImage(:));
+    trueImage = double(imread(imgFile));
+%     trueImage = trueImage ./ max(trueImage(:));
+    [h w c] = size(trueImage);
 
     % CFA: GRBG
     % simulate cfa image
     rawImage = mosaicRGB(trueImage);
     
     for j=1:length(CM)
-        [compression_ratio, ind_cell] = apply_JPEG_encoder(rawImage,75,CM{j});
-        [dmImage] = apply_JPEG_decoder(ind_cell,'bilinear',CM{j});
-        disp(CM{j});
-        disp(compression_ratio);
+        for q=1:length(quality)
+            [compression_ratio, ind_cell] = apply_JPEG_encoder(rawImage,quality(q),CM{j}, mode);
+            [reconImage] = apply_JPEG_decoder(ind_cell, CM{j});
+            mse = evaluateQuality(rawImage, reconImage, 'mse');
+            disp(CM{j});
+            disp(compression_ratio);
+            disp(mse);
+        end
+        figure;
+        subplot(121); imagesc(rawImage, [0 255]); colormap gray; axis image;
+        subplot(122); imagesc(reconImage, [0 255]); colormap gray; axis image;
     end
 
 end
