@@ -18,11 +18,6 @@ addpath cfacompression/applyJPEG/tempImages
 % structure conversion
 y_Array = structure_Conversion(y_Array1, y_Array2);
 
-% temp_max = max(max([y_Array;cb_Array;cr_Array]));
-% y_Array = y_Array/temp_max;
-% cb_Array = cb_Array/temp_max;
-% cr_Array = cr_Array/temp_max;
-
 ind_y=sprintf('cfacompression/applyJPEG/tempImages/test3_y.jpg');
 ind_cb=sprintf('cfacompression/applyJPEG/tempImages/test3_cb.jpg');
 ind_cr=sprintf('cfacompression/applyJPEG/tempImages/test3_cr.jpg');

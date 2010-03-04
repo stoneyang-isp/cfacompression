@@ -1,32 +1,32 @@
 % apply jpeg to each color component
-% A Novel Method of Lossy Image Compression for Digital Image Sensors with Bayer Color Filter Arrays
-% Method1
-% 1. low-pass filtering (filter2)
-% 2. down-sampling
-% 3. color space conversion
-% 4. JPEG compression
+% New Efficient Methods of Image Compression in Digital Cameras with Color
+% Filter Array
+% Method 1
+% 1. convert to YCbCr
+% 2. Structure Conversion
 
-function [compression_ratio, ind_cell] = NovelmethodFilter2_applyJPEG_encoder(rawImage,quality,mode)
+function [compression_ratio, ind_cell] = structureConversion_applyJPEG_encoder(rawImage,quality, mode)
 
 addpath cfacompression/applyJPEG/tempImages
 
 % extract color component from rawImage
 [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
 
-% lowpass filtering using filter2
-green_Array = lowpass_filtering_2(green_Array1,green_Array2);
-
 % convert RGB to YCbCr
-[y_Array1, y_Array2, cb_Array, cr_Array] = cfa_rgb2ycbcr(red_Array, green_Array(1:2:end,:), green_Array(2:2:end,:), blue_Array);
+[y_Array1, y_Array2, cb_Array, cr_Array] = cfa_rgb2ycbcr(red_Array, green_Array1, green_Array2, blue_Array);
 
-y_Array = merge_Array(y_Array1, y_Array2);
+% structure conversion
+y_Array = structure_Conversion(y_Array1, y_Array2);
 
-% aware that matlab is terrible at displaying images
-% zoom in to get rid of aliasing effects
+disp (max(y_Array(:_
+% temp_max = max(max([y_Array;cb_Array;cr_Array]));
+% y_Array = y_Array/temp_max;
+% cb_Array = cb_Array/temp_max;
+% cr_Array = cr_Array/temp_max;
 
-ind_y=sprintf('cfacompression/applyJPEG/tempImages/test6_y.jpg');
-ind_cb=sprintf('cfacompression/applyJPEG/tempImages/test6_cb.jpg');
-ind_cr=sprintf('cfacompression/applyJPEG/tempImages/test6_cr.jpg');
+ind_y=sprintf('cfacompression/applyJPEG/tempImages/test3_y.jpg');
+ind_cb=sprintf('cfacompression/applyJPEG/tempImages/test3_cb.jpg');
+ind_cr=sprintf('cfacompression/applyJPEG/tempImages/test3_cr.jpg');
 
 if strcmp(mode, 'lossless')
     imwrite(uint8(y_Array),ind_y,'jpg','Mode',mode);

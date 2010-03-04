@@ -4,9 +4,9 @@
 % 1. convert to YCbCr
 % 2. Structure Seperation
 
-function [compression_ratio, ind_cell] = structureSeperation_applyJPEG_encoder(rawImage,quality)
+function [compression_ratio, ind_cell] = structureSeperation_applyJPEG_encoder(rawImage,quality, mode)
 
-addpath tempImages applyJPEG
+addpath cfacompression/applyJPEG/tempImages
 
 % extract color component from rawImage
 [red_Array, green_Array1, green_Array2, blue_Array] = extract_colorComponent(rawImage);
@@ -14,24 +14,26 @@ addpath tempImages applyJPEG
 % convert RGB to YCbCr
 [y_Array1, y_Array2, cb_Array, cr_Array] = cfa_rgb2ycbcr(red_Array, green_Array1, green_Array2, blue_Array);
 
-temp_max = max(max([y_Array1;y_Array2;cb_Array;cr_Array]));
-y_Array1 = y_Array1/temp_max;
-y_Array2 = y_Array2/temp_max;
-cb_Array = cb_Array/temp_max;
-cr_Array = cr_Array/temp_max;
-
 % aware that matlab is terrible at displaying images
 % zoom in to get rid of aliasing effects
 
-ind_y1=sprintf('tempImages/test4_y1.jpg');
-ind_y2=sprintf('tempImages/test4_y2.jpg');
-ind_cb=sprintf('tempImages/test4_cb.jpg');
-ind_cr=sprintf('tempImages/test4_cr.jpg');
+ind_y1=sprintf('cfacompression/applyJPEG/tempImages/test4_y1.jpg');
+ind_y2=sprintf('cfacompression/applyJPEG/tempImages/test4_y2.jpg');
+ind_cb=sprintf('cfacompression/applyJPEG/tempImages/test4_cb.jpg');
+ind_cr=sprintf('cfacompression/applyJPEG/tempImages/test4_cr.jpg');
 
-imwrite(y_Array1,ind_y1,'jpg','Quality',quality);
-imwrite(y_Array2,ind_y2,'jpg','Quality',quality);
-imwrite(cb_Array,ind_cb,'jpg','Quality',quality);
-imwrite(cr_Array,ind_cr,'jpg','Quality',quality);
+if strcmp(mode, 'lossless')
+    imwrite(uint8(y_Array1),ind_y1,'jpg','Mode',mode);
+    imwrite(uint8(y_Array2),ind_y2,'jpg','Mode',mode);
+    imwrite(uint8(cb_Array),ind_cb,'jpg','Mode',mode);
+    imwrite(uint8(cr_Array),ind_cr,'jpg','Mode',mode);
+else
+
+    imwrite(uint8(y_Array1),ind_y1,'jpg','Quality',quality);
+    imwrite(uint8(y_Array2),ind_y2,'jpg','Quality',quality);
+    imwrite(uint8(cb_Array),ind_cb,'jpg','Quality',quality);
+    imwrite(uint8(cr_Array),ind_cr,'jpg','Quality',quality);
+end
 
 jpeg_y1 = read_jpeg(ind_y1);
 jpeg_y2 = read_jpeg(ind_y2);

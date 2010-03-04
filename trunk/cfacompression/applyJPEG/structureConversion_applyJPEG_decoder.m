@@ -1,4 +1,4 @@
-function [recon_rawImage] = structureConversion_applyJPEG_decoder(ind_cell, demosaic_method)
+function [recon_rawImage] = structureConversion_applyJPEG_decoder(ind_cell)
 
 addpath cfacompression/applyJPEG/tempImages
 
@@ -16,10 +16,8 @@ recon_cr = double(imread(ind_cr));
 
 % inverse structure conversion
 [recon_y1, recon_y2] = inverse_structure_Conversion(recon_y);
-
 % convert YCbCr to RGB
 [recon_red, recon_green1, recon_green2, recon_blue] = cfa_ycbcr2rgb(recon_y1, recon_y2, recon_cb, recon_cr);
-
 % reconstruction raw image
 recon_rawImage = reconstruction_rawImage(recon_red, recon_green1, recon_green2, recon_blue);
 
