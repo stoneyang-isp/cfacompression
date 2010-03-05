@@ -8,8 +8,8 @@ imgIndex = [23];
 CM = {'directJPEG' , 'simpleMerging' , 'structureConversion' , 'structureSeperation' , 'NovelMethod1' , 'NovelMethod2'};
 %CM = {'NovelMethod2'};
 %mode = 'lossless'; quality = [100];
-mode = 'lossy'; %quality = [25 50 75 100];
-quality = [100];
+mode = 'lossy'; quality = [25 50 75 100];
+%quality = [25];
 
 for i=1:length(imgIndex)
 
