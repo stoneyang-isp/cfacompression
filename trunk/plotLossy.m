@@ -1,13 +1,14 @@
 
 % test lossy CFA compression methods
 clear;clc;close all;
+load RGBJPEG.mat
 
 mode = 'lossy';
 imgIndex = [1:24];
 CM = {'directJPEG' , 'simpleMerging' , 'structureConversion' , 'structureSeperation' , 'NovelMethod1', 'NovelMethod2'};
 DM = {'bilinear', 'homogeneity', 'frequency'};
 dir = ['results_' mode '/'];
-quality = [10:10:100];
+quality = [20:10:90];
 
 % imgIndex = [23 24];
 % CM = {'directJPEG' , 'simpleMerging'};
@@ -80,11 +81,6 @@ psnrRGB = 10*log10(255*255./mseRGB);
 
 rateRAW = 8./rateRAW;
 
-rateRAW = rateRAW(:,1:9);
-psnrRAW = psnrRAW(:,1:9,:);
-psnrRGB = psnrRGB(:,1:9,:);
-scielabRGB = scielabRGB(:,1:9,:);
-
 figure(1);
 plot(rateRAW', psnrRAW'); title('CFA Comparison'); xlabel('Rate (bpp)'); ylabel('PSNR (dB)');
 legend(CM, 'Location', 'Southeast');
@@ -92,7 +88,8 @@ legend(CM, 'Location', 'Southeast');
 figure(2);
 for i=1:length(DM)
     subplot(1, length(DM),i); plot(rateRAW', psnrRGB(:,:,i)'); title(['RGB Comparison - ' DM{i}]); xlabel('Rate (bpp)'); ylabel('PSNR (dB)');
-    legend(CM, 'Location', 'Southeast');
+    legend(CM, 'Location', 'Southeast'); hold on;
+%     plot(rateRGBJPEG, psnrRGBJPEG, 'r');
 end
 
 figure(3);

@@ -6,10 +6,10 @@ addpath cfacompression/applyJPEG
 
 imgIndex = [23];
 CM = {'directJPEG' , 'simpleMerging' , 'structureConversion' , 'structureSeperation' , 'NovelMethod1' , 'NovelMethod2'};
-%CM = {'NovelMethod2'};
+CM = {'NovelMethod1'};
 %mode = 'lossless'; quality = [100];
 mode = 'lossy'; quality = [25 50 75 100];
-%quality = [25];
+quality = [100];
 
 for i=1:length(imgIndex)
 
@@ -36,6 +36,9 @@ for i=1:length(imgIndex)
         figure;
         subplot(121); imagesc(rawImage, [0 255]); colormap gray; axis image;
         subplot(122); imagesc(reconImage, [0 255]); colormap gray; axis image;
+        figure;
+        subplot(121); imagesc(uint8(applyDemosaic(rawImage, 'bilinear'))); axis image;
+        subplot(122); imagesc(uint8(applyDemosaic(reconImage, 'bilinear'))); axis image;
     end
 
 end
