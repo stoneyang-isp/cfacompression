@@ -1,0 +1,10 @@
+kodim16	 lossy 	structureConversion	393216.000	5985.000	 10.000	none	195.419	  7.127	196.753	  7.168	 
+kodim16	 lossy 	structureConversion	393216.000	9826.000	 20.000	none	132.275	  3.603	133.488	  3.623	 
+kodim16	 lossy 	structureConversion	393216.000	13916.000	 30.000	none	109.325	  2.815	110.657	  2.842	 
+kodim16	 lossy 	structureConversion	393216.000	17676.000	 40.000	none	 97.298	  2.375	 98.790	  2.425	 
+kodim16	 lossy 	structureConversion	393216.000	21528.000	 50.000	none	 87.693	  2.043	 89.447	  2.088	 
+kodim16	 lossy 	structureConversion	393216.000	25680.000	 60.000	none	 79.158	  1.888	 80.969	  1.943	 
+kodim16	 lossy 	structureConversion	393216.000	32321.000	 70.000	none	 68.284	  1.622	 70.215	  1.685	 
+kodim16	 lossy 	structureConversion	393216.000	43000.000	 80.000	none	 55.762	  1.377	 57.950	  1.453	 
+kodim16	 lossy 	structureConversion	393216.000	70048.000	 90.000	none	 33.279	  1.010	 35.709	  1.105	 
+kodim16	 lossy 	structureConversion	393216.000	209103.000	100.000	none	  1.252	  0.307	  3.947	  0.521	 

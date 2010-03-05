@@ -1,0 +1,10 @@
+kodim02	 lossy 	structureConversion	393216.000	5907.000	 10.000	none	136.944	  3.741	143.646	  3.800	 
+kodim02	 lossy 	structureConversion	393216.000	8833.000	 20.000	none	 92.555	  2.491	 99.944	  2.586	 
+kodim02	 lossy 	structureConversion	393216.000	12111.000	 30.000	none	 77.406	  2.023	 85.083	  2.133	 
+kodim02	 lossy 	structureConversion	393216.000	15194.000	 40.000	none	 68.747	  1.813	 75.706	  1.935	 
+kodim02	 lossy 	structureConversion	393216.000	18268.000	 50.000	none	 62.743	  1.669	 69.961	  1.803	 
+kodim02	 lossy 	structureConversion	393216.000	22057.000	 60.000	none	 57.432	  1.551	 65.021	  1.697	 
+kodim02	 lossy 	structureConversion	393216.000	27989.000	 70.000	none	 51.063	  1.400	 59.263	  1.555	 
+kodim02	 lossy 	structureConversion	393216.000	38350.000	 80.000	none	 42.223	  1.233	 50.502	  1.405	 
+kodim02	 lossy 	structureConversion	393216.000	65391.000	 90.000	none	 28.330	  1.011	 36.800	  1.195	 
+kodim02	 lossy 	structureConversion	393216.000	205312.000	100.000	none	  1.190	  0.277	  9.994	  0.600	 
