@@ -11,10 +11,10 @@ ind_y2 = ind_cell{2};
 ind_cb = ind_cell{3};
 ind_cr = ind_cell{4};
 
-recon_y1 = imresize(double(imread(ind_y1)),1);
-recon_y2 = imresize(double(imread(ind_y2)),1);
-recon_cb = imresize(double(imread(ind_cb)),1);
-recon_cr = imresize(double(imread(ind_cr)),1);
+recon_y1 = double(imread(ind_y1));
+recon_y2 = double(imread(ind_y2));
+recon_cb = double(imread(ind_cb));
+recon_cr = double(imread(ind_cr));
 
 % convert YCbCr to RGB
 [recon_red, recon_green1, recon_green2, recon_blue] = cfa_ycbcr2rgb(recon_y1, recon_y2, recon_cb, recon_cr);
