@@ -1,0 +1,5 @@
+kodim15	 lossless 	directJPEG	393216.000	357713.000	 
+kodim15	 lossless 	simpleMerging	393216.000	258194.000	 
+kodim15	 lossless 	structureConversion	393216.000	215000.000	 
+kodim15	 lossless 	structureSeperation	393216.000	217255.000	 
+kodim15	 lossless 	losslessPrediction	393216.000	220366.760	 

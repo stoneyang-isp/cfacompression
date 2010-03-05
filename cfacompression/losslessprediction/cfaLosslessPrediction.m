@@ -103,7 +103,7 @@ temp1 = diffNonGreen(2+border(1):2:h-border(2), 1+border(1):2:w-border(2));
 temp2 = diffNonGreen(1+border(1):2:h-border(2), 2+border(1):2:w-border(2));
 encodeNonGreen = [temp1(:)' temp2(:)'];
 
-encodedData = [encodeGreen encodeNonGreen];
+encodedData = truncate([encodeGreen encodeNonGreen], -256, 256);
 
 entropyAll = evaluateEntropy(evaluatePmf(encodedData, -256, 256));
 
