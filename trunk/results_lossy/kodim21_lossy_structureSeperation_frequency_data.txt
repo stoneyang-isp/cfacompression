@@ -1,0 +1,10 @@
+kodim21	 lossy 	structureSeperation	393216.000	8218.000	 10.000	none	322.226	  6.532	325.020	  6.551	 
+kodim21	 lossy 	structureSeperation	393216.000	13968.000	 20.000	none	216.894	  3.649	221.156	  3.690	 
+kodim21	 lossy 	structureSeperation	393216.000	19273.000	 30.000	none	175.810	  2.866	181.227	  2.946	 
+kodim21	 lossy 	structureSeperation	393216.000	23989.000	 40.000	none	151.594	  2.310	157.615	  2.415	 
+kodim21	 lossy 	structureSeperation	393216.000	28688.000	 50.000	none	132.849	  1.953	139.296	  2.062	 
+kodim21	 lossy 	structureSeperation	393216.000	33951.000	 60.000	none	115.527	  1.778	122.386	  1.893	 
+kodim21	 lossy 	structureSeperation	393216.000	42441.000	 70.000	none	 93.252	  1.554	100.456	  1.717	 
+kodim21	 lossy 	structureSeperation	393216.000	56482.000	 80.000	none	 64.155	  1.226	 71.964	  1.433	 
+kodim21	 lossy 	structureSeperation	393216.000	90142.000	 90.000	none	 26.066	  0.825	 34.425	  1.116	 
+kodim21	 lossy 	structureSeperation	393216.000	248107.000	100.000	none	  0.632	  0.251	  9.441	  0.661	 

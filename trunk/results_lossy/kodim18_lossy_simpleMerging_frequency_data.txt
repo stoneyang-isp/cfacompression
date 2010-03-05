@@ -1,0 +1,10 @@
+kodim18	 lossy 	simpleMerging	393216.000	15556.000	 10.000	none	249.007	  4.359	257.664	  4.455	 
+kodim18	 lossy 	simpleMerging	393216.000	27955.000	 20.000	none	180.438	  2.898	190.607	  3.062	 
+kodim18	 lossy 	simpleMerging	393216.000	38539.000	 30.000	none	143.382	  2.321	154.860	  2.524	 
+kodim18	 lossy 	simpleMerging	393216.000	47861.000	 40.000	none	118.927	  1.999	131.185	  2.239	 
+kodim18	 lossy 	simpleMerging	393216.000	56615.000	 50.000	none	 99.398	  1.767	112.123	  2.036	 
+kodim18	 lossy 	simpleMerging	393216.000	66484.000	 60.000	none	 81.278	  1.578	 94.309	  1.868	 
+kodim18	 lossy 	simpleMerging	393216.000	81512.000	 70.000	none	 59.659	  1.334	 73.166	  1.671	 
+kodim18	 lossy 	simpleMerging	393216.000	104782.000	 80.000	none	 35.584	  1.041	 49.481	  1.425	 
+kodim18	 lossy 	simpleMerging	393216.000	153951.000	 90.000	none	 12.136	  0.626	 26.366	  1.078	 
+kodim18	 lossy 	simpleMerging	393216.000	347533.000	100.000	none	  0.088	  0.064	 14.509	  0.693	 

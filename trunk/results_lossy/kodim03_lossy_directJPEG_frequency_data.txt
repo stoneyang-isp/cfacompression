@@ -1,0 +1,10 @@
+kodim03	 lossy 	directJPEG	393216.000	17490.000	 10.000	none	317.081	 11.520	322.007	 11.624	 
+kodim03	 lossy 	directJPEG	393216.000	27541.000	 20.000	none	224.386	  8.826	229.397	  8.886	 
+kodim03	 lossy 	directJPEG	393216.000	39525.000	 30.000	none	137.913	  6.942	142.074	  6.958	 
+kodim03	 lossy 	directJPEG	393216.000	49154.000	 40.000	none	 95.163	  5.484	 99.528	  5.528	 
+kodim03	 lossy 	directJPEG	393216.000	59440.000	 50.000	none	 65.167	  4.238	 69.685	  4.310	 
+kodim03	 lossy 	directJPEG	393216.000	67445.000	 60.000	none	 46.649	  3.934	 51.168	  4.055	 
+kodim03	 lossy 	directJPEG	393216.000	79289.000	 70.000	none	 29.220	  2.986	 33.651	  3.110	 
+kodim03	 lossy 	directJPEG	393216.000	97252.000	 80.000	none	 17.049	  1.909	 21.621	  2.031	 
+kodim03	 lossy 	directJPEG	393216.000	133836.000	 90.000	none	  5.902	  1.105	 10.599	  1.262	 
+kodim03	 lossy 	directJPEG	393216.000	283379.000	100.000	none	  0.087	  0.078	  4.985	  0.344	 

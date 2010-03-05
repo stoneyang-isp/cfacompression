@@ -1,0 +1,10 @@
+kodim10	 lossy 	NovelMethod1	393216.000	6961.000	 10.000	none	167.948	  5.906	169.171	  5.917	 
+kodim10	 lossy 	NovelMethod1	393216.000	10655.000	 20.000	none	112.447	  3.251	113.913	  3.277	 
+kodim10	 lossy 	NovelMethod1	393216.000	14186.000	 30.000	none	 94.858	  2.506	 96.578	  2.539	 
+kodim10	 lossy 	NovelMethod1	393216.000	17353.000	 40.000	none	 84.330	  2.210	 86.313	  2.250	 
+kodim10	 lossy 	NovelMethod1	393216.000	20600.000	 50.000	none	 76.958	  1.821	 79.119	  1.860	 
+kodim10	 lossy 	NovelMethod1	393216.000	24430.000	 60.000	none	 70.047	  1.672	 72.355	  1.716	 
+kodim10	 lossy 	NovelMethod1	393216.000	30582.000	 70.000	none	 61.994	  1.515	 64.412	  1.568	 
+kodim10	 lossy 	NovelMethod1	393216.000	40974.000	 80.000	none	 51.707	  1.263	 54.292	  1.333	 
+kodim10	 lossy 	NovelMethod1	393216.000	66713.000	 90.000	none	 39.538	  0.995	 42.346	  1.100	 
+kodim10	 lossy 	NovelMethod1	393216.000	203491.000	100.000	none	 25.261	  0.613	 28.399	  0.797	 

@@ -1,0 +1,10 @@
+kodim21	 lossy 	structureConversion	393216.000	7834.000	 10.000	none	303.895	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	12837.000	 20.000	none	215.901	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	17562.000	 30.000	none	181.588	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	21910.000	 40.000	none	162.393	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	25965.000	 50.000	none	145.705	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	30443.000	 60.000	none	132.639	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	38104.000	 70.000	none	114.499	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	50711.000	 80.000	none	 87.838	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	81730.000	 90.000	none	 43.919	  0.000	  0.000	  0.000	 
+kodim21	 lossy 	structureConversion	393216.000	230641.000	100.000	none	  1.216	  0.000	  0.000	  0.000	 
